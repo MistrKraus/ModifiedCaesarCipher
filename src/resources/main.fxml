@@ -1,0 +1,24 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.geometry.Insets?>
+<GridPane fx:controller="MainController" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets topRightBottomLeft="10"/>
+    </padding>
+    <Label text="Input Text:" alignment="TOP_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextArea fx:id="inputText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Label text="Word:" alignment="TOP_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <HBox GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <ComboBox fx:id="rawWords" HBox.hgrow="ALWAYS"/>
+        <Label text="=>"/>
+        <ComboBox fx:id="cipherdWords" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <Label text="Output Text:" alignment="TOP_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextArea fx:id="outputText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Label text="Keys:" alignment="TOP_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextArea fx:id="keysText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+</GridPane>
