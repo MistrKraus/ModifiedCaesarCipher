@@ -115,6 +115,12 @@ public class MainController implements Initializable {
         keysText.clear();
 
         this.rawWordsList = textManager.getDecryptedWords();
+        if (rawWordsList.size() == 0) {
+            outputText.setText("Input Error");
+            rawWords.setItems(null);
+            cipheredWords.setItems(null);
+            return;
+        }
         this.cipheredKeysList = textManager.getEncryptedForms(0);
 
         outputText.setText(textManager.getEncryptedText());
@@ -149,6 +155,7 @@ public class MainController implements Initializable {
     }
 
     public void decryptText(MouseEvent mouseEvent) {
-
+        decryptedText.clear();
+        decryptedText.setText(textManager.decryptText(encryptedText.getText()));
     }
 }

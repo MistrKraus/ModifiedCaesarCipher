@@ -44,15 +44,24 @@ public class Word {
 
         this.encryptedWord = word;
 
+        //setPossibleForms();
     }
 
     /**
      * Uloží veškeré možné šifrování tohoto slova
      */
     public void setPossibleForms() {
+        if (possibilities.size() > 0)
+            return;
+
         this.possibilities = modCaesarCipher.encryptWord(this);
     }
 
+    /**
+     * Zašifruje slovo podle vloženého klíče a nastaví klíč
+     *
+     * @param key klíč k šifrování
+     */
     public void encryptByKey(int key) {
         this.key = key;
         this.encryptedWord = possibilities.get(key);
@@ -84,7 +93,10 @@ public class Word {
         if (decryptedWord != null)
             return decryptedWord;
 
-        return "-ERROR-";
+        setPossibleForms();
+        setDecryptedWord(possibilities.get(0));
+
+        return this.decryptedWord;
 //        if (possibilities.size() > 0) {
 //            this.decryptedWord = possibilities.get(0);
 //            return decryptedWord;
@@ -150,5 +162,14 @@ public class Word {
             return decryptedWord;
 
         return encryptedWord;
+    }
+
+    public boolean decrypt() {
+        if (key < 0)
+            return false;
+
+        decryptedWord = modCaesarCipher.decryptWord(encryptedWord, key);
+
+        return true;
     }
 }

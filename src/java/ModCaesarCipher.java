@@ -19,7 +19,7 @@ public class ModCaesarCipher {
     private static final char[] consonants = new char[] { 'B', 'C', 'D', 'J', 'K', 'L', 'M', 'N',
                                                     'P', 'R', 'S', 'T', 'V' };
 //    private static final char[] lowUsed = new char[] { 'F', 'G', 'Q', 'W', 'X' };
-    private static final char[] lowUsed = new char[] { 'H', 'F', 'G', 'Q', 'X', 'W', 'Y', 'Z' };
+    private static final char[] lowUsed = new char[] { 'H', 'F', 'G', 'Q', 'X', 'W', 'Z' };
 
     public ModCaesarCipher() {
         setAlphabet();
@@ -28,7 +28,7 @@ public class ModCaesarCipher {
     public ObservableList<String> encryptWord(Word input_word) {
         ObservableList<String> allEncryptions = FXCollections.observableArrayList();
         String word = input_word.getWord();
-        int key = input_word.getKey();
+        int key = input_word.getKey() % MAX_KEY;
 
         int wordLength = word.length();
 //        StringBuilder encryptedWord = new StringBuilder();
@@ -125,6 +125,7 @@ public class ModCaesarCipher {
 
     // TODO
     private int getDecrypedCharAlphabetIndex(char x, int key) {
+        key = key % MAX_KEY;
         if (key == 0)
             return ((int) x) - ASCII_A;
 
@@ -167,5 +168,20 @@ public class ModCaesarCipher {
             if (c == x)
                 return true;
         return false;
+    }
+
+    public static short getMaxKey() {
+        return MAX_KEY;
+    }
+
+    public String decryptWord(String word, int key) {
+        StringBuilder decryptedWord = new StringBuilder();
+
+        for (int i = 0; i < word.length(); i++)
+            for (int j = 0; j < ALPHABET_LENGTH; j++)
+                if (word.charAt(i) == alphabet[j][key%MAX_KEY])
+                    decryptedWord.append(alphabet[j][0]);
+
+        return decryptedWord.toString();
     }
 }
