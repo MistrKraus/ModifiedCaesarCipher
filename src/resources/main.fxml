@@ -1,24 +1,60 @@
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ComboBox?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
-<GridPane fx:controller="MainController" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <padding>
-        <Insets topRightBottomLeft="10"/>
-    </padding>
-    <Label text="Input Text:" alignment="TOP_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <TextArea fx:id="inputText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <Label text="Word:" alignment="TOP_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <HBox GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.columnIndex="1">
-        <ComboBox fx:id="rawWords" HBox.hgrow="ALWAYS"/>
-        <Label text="=>"/>
-        <ComboBox fx:id="cipherdWords" HBox.hgrow="ALWAYS"/>
-    </HBox>
-    <Label text="Output Text:" alignment="TOP_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <TextArea fx:id="outputText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <Label text="Keys:" alignment="TOP_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-    <TextArea fx:id="keysText" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-</GridPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="MainController">
+    <Tab text="Encode">
+        <!--<GridPane fx:id="gridPane">
+            <padding><Insets topRightBottomLeft="10"/></padding>
+            <Label text="Input Text:" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextArea fx:id="inputText" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"/>
+            <Label text="Word:" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <HBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                <padding>
+                    <Insets right="10" top="10"/>
+                </padding>
+                <ComboBox fx:id="rawWords" HBox.hgrow="ALWAYS"/>
+                <Label text="=>"/>
+                <ComboBox fx:id="cipheredWords" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Label text="Output Text:" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextArea fx:id="outputText" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
+                      GridPane.rowIndex="3"/>
+            <Label text="Keys:" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextArea fx:id="keysText" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5"/>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+            <Label text="afdg" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <Button fx:id="encodeBtn" text="Encode" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        </GridPane>-->
+        <VBox>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+            <Label text="Input Text:"/>
+            <TextArea fx:id="inputText"/>
+            <HBox>
+                <padding><Insets top="10"/></padding>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button onMouseClicked="#processText" text="Process Input"/>
+            </HBox>
+            <Label text="Word:"><padding><Insets top="10"/></padding></Label>
+            <HBox>
+                <ComboBox fx:id="rawWords" prefWidth="150" HBox.hgrow="ALWAYS"/>
+                <Label text="=>"><padding><Insets left="10" right="10"/></padding></Label>
+                <ComboBox fx:id="cipheredWords" prefWidth="150" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Label text="Output Text:"><padding><Insets top="10"/></padding></Label>
+            <TextArea fx:id="outputText"/>
+            <Label text="Keys:"><padding><Insets top="10"/></padding></Label>
+            <TextArea fx:id="keysText"/>
+            <HBox>
+                <padding><Insets top="10"/></padding>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button onMouseClicked="#encodeText" text="Encode"/>
+            </HBox>
+        </VBox>
+    </Tab>
+    <Tab text="Decode">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+    </Tab>
+</TabPane>

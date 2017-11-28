@@ -10,6 +10,12 @@ public class App extends Application {
         launch(args);
     }
 
+    /**
+     * Vytvoří a zobrazí okno
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Modified Caesar Cipher");
