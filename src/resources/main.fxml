@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="MainController">
-    <Tab text="Encode">
+    <Tab text="Encrypt">
         <!--<GridPane fx:id="gridPane">
             <padding><Insets topRightBottomLeft="10"/></padding>
             <Label text="Input Text:" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -43,10 +43,10 @@
                 <Label text="=>"><padding><Insets left="10" right="10"/></padding></Label>
                 <ComboBox fx:id="cipheredWords" prefWidth="150" HBox.hgrow="ALWAYS"/>
             </HBox>
-            <Label text="Output Text:"><padding><Insets top="10"/></padding></Label>
-            <TextArea fx:id="outputText"/>
+            <Label text="Encrypted Text:"><padding><Insets top="10"/></padding></Label>
+            <TextArea fx:id="outputText" editable="false"/>
             <Label text="Keys:"><padding><Insets top="10"/></padding></Label>
-            <TextArea fx:id="keysText"/>
+            <TextArea fx:id="keysText" editable="false"/>
             <HBox>
                 <padding><Insets top="10"/></padding>
                 <Region HBox.hgrow="ALWAYS"/>
@@ -54,7 +54,23 @@
             </HBox>
         </VBox>
     </Tab>
-    <Tab text="Decode">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+    <Tab text="Decrypt">
+        <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
+        <VBox>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+            <HBox>
+                <Label text="Encrypted text"><padding><Insets top="10"/></padding></Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Load Encrypted Text" fx:id="loadBtn" onMouseClicked="#loadText"/>
+            </HBox>
+            <TextArea fx:id="encryptedText"/>
+            <HBox>
+                <padding><Insets top="3"/></padding>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Decrypt" onMouseClicked="#decryptText"/>
+            </HBox>
+            <Label text="Decrypted Text"><padding><Insets top="10"/></padding></Label>
+            <TextArea fx:id="decryptedText" editable="false"/>
+        </VBox>
     </Tab>
 </TabPane>

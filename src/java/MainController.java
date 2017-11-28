@@ -2,8 +2,10 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -20,6 +22,10 @@ public class MainController implements Initializable {
     public TextArea keysText;
     public GridPane gridPane;
 
+    public TextArea encryptedText;
+    public TextArea decryptedText;
+    public Button loadBtn;
+
     private TextManager textManager;
 
     private ObservableList<String> rawWordsList = FXCollections.observableArrayList();
@@ -29,11 +35,17 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         textManager = new TextManager();
 
+        loadBtn.setTooltip(new Tooltip("File format:\n<word>(<key>)<space>..."));
+        encryptedText.setPromptText("<word>(<key>)<space>");
+
         //System.out.println(textManager.processPlaintText("Ahoj! Jak se mas?"));
 
         inputText.setPrefRowCount(3);
         outputText.setPrefRowCount(3);
         keysText.setPrefRowCount(2);
+
+        encryptedText.setPrefRowCount(3);
+        decryptedText.setPrefRowCount(3);
 
         rawWords.getSelectionModel().select(0);
         cipheredWords.getSelectionModel().select(0);
@@ -129,6 +141,14 @@ public class MainController implements Initializable {
      * @param mouseEvent
      */
     public void encodeText(MouseEvent mouseEvent) {
+
+    }
+
+    public void loadText(MouseEvent mouseEvent) {
+
+    }
+
+    public void decryptText(MouseEvent mouseEvent) {
 
     }
 }
