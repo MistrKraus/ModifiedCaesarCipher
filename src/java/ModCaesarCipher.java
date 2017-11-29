@@ -22,7 +22,7 @@ public class ModCaesarCipher {
     private static final char[] lowUsed = new char[] { 'H', 'F', 'G', 'Q', 'X', 'W', 'Z' };
 
     public ModCaesarCipher() {
-        setAlphabet();
+        //setAlphabet();
     }
 
     public ObservableList<String> encryptWord(Word input_word) {
@@ -31,26 +31,47 @@ public class ModCaesarCipher {
         int key = input_word.getKey() % MAX_KEY;
 
         int wordLength = word.length();
-//        StringBuilder encryptedWord = new StringBuilder();
-//        for (int i = 0; i < wordLength; i++) {
-//            char x = word.charAt(i);
-//            int index = getDecrypedCharAlphabetIndex(x, key);
+
+//        for (int i = 0; i < MAX_KEY; i++) {
+//            StringBuilder encryptedWord = new StringBuilder();
 //
-//            for (int j = 0; j < MAX_KEY; j++) {
+//            for (int j = 0; j < wordLength; j++) {
+//                char x = word.charAt(j);
+//                int index = getDecrypedCharAlphabetIndex(x, key);
 //
+//                encryptedWord.append(alphabet[index][i]);
 //            }
+//            allEncryptions.add(encryptedWord.toString());
 //        }
+//
+//        return allEncryptions;
 
         for (int i = 0; i < MAX_KEY; i++) {
             StringBuilder encryptedWord = new StringBuilder();
-
             for (int j = 0; j < wordLength; j++) {
                 char x = word.charAt(j);
-                int index = getDecrypedCharAlphabetIndex(x, key);
+                int index = vowelIndex(x);
 
-                encryptedWord.append(alphabet[index][i]);
+                if (index != -1) {
+                    encryptedWord.append(vowels[(index + i) % VOWELS_COUNT]);
+
+                    continue;
+                }
+
+                index = consonantIndex(x);
+
+                if (index != -1) {
+                    encryptedWord.append(consonants[(index + i) % CONSONANT_COUNT]);
+
+                    continue;
+                }
+
+                encryptedWord.append(x);
             }
             allEncryptions.add(encryptedWord.toString());
+
+            if (key == i)
+                input_word.setEncryptedWord(encryptedWord.toString());
         }
 
         return allEncryptions;
@@ -101,7 +122,7 @@ public class ModCaesarCipher {
     private void setAlphabet() {
         for (int i = 0; i < ALPHABET_LENGTH; i++) {
             char current = ((char)(ASCII_A + i));
-            int charIndex = getCharSubaplhabetIndex(current);
+            int charIndex = getCharSubalphabetIndex(current);
             alphabet[i][0] = current;
 
             if (isConsonant(current)) {
@@ -137,7 +158,7 @@ public class ModCaesarCipher {
     }
 
     // TODO
-    private int getCharSubaplhabetIndex(char x) {
+    private int getCharSubalphabetIndex(char x) {
         if (isConsonant(x))
             for (int i = 0; i < CONSONANT_COUNT; i++)
                 if (x == consonants[i])
@@ -147,6 +168,24 @@ public class ModCaesarCipher {
             for (int i = 0; i < VOWELS_COUNT; i++)
                 if (x == vowels[i])
                     return i;
+
+        return -1;
+    }
+
+    private int vowelIndex(char x) {
+        for (int i = 0; i < VOWELS_COUNT; i++) {
+            if (x == vowels[i])
+                return i;
+        }
+
+        return -1;
+    }
+
+    private int consonantIndex(char x) {
+        for (int i = 0; i < CONSONANT_COUNT; i++) {
+            if (x == consonants[i])
+                return i;
+        }
 
         return -1;
     }
@@ -177,10 +216,42 @@ public class ModCaesarCipher {
     public String decryptWord(String word, int key) {
         StringBuilder decryptedWord = new StringBuilder();
 
-        for (int i = 0; i < word.length(); i++)
-            for (int j = 0; j < ALPHABET_LENGTH; j++)
-                if (word.charAt(i) == alphabet[j][key%MAX_KEY])
-                    decryptedWord.append(alphabet[j][0]);
+//        for (int i = 0; i < word.length(); i++)
+//            for (int j = 0; j < ALPHABET_LENGTH; j++)
+//                if (word.charAt(i) == alphabet[j][key%MAX_KEY])
+//                    decryptedWord.append(alphabet[j][0]);
+
+        int lenght = word.length();
+
+        for (int i = 0; i < lenght; i++) {
+            char x = word.charAt(i);
+            int index = vowelIndex(x);
+            int id;
+
+            if (index != -1)  {
+                id = index - (key % VOWELS_COUNT);
+                if (id < 0)
+                    id = VOWELS_COUNT + id;
+
+                decryptedWord.append(vowels[id]);
+                continue;
+            }
+
+            index = consonantIndex(x);
+
+            if (index != -1) {
+                id = index - (key % CONSONANT_COUNT);
+
+                if (id < 0)
+                    id = CONSONANT_COUNT + id;
+
+                decryptedWord.append(consonants[id]);
+
+                continue;
+            }
+
+            decryptedWord.append(x);
+        }
 
         return decryptedWord.toString();
     }
