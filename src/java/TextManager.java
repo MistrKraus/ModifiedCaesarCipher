@@ -28,6 +28,8 @@ public class TextManager {
 
         plaintText = removeDelimitersBeforeText(plaintText.toUpperCase().replaceAll("[^A-Z" + delimiter + "]", "")
                 .replaceAll(delimiter + "+", delimiter));
+//        plaintText = removeDelimitersBeforeText(plaintText.toUpperCase().replaceAll("[^A-Z][^ \\t\\n\\x0B\\f\\r]", "")
+//                .replaceAll("[ \t\n\f\r]+", delimiter));
 
         if (plaintText.length() == 0)
             return "Input Error";
@@ -52,6 +54,7 @@ public class TextManager {
         //System.out.println(encryptedText);
 
         encryptedText = removeDelimitersBeforeText(encryptedText.toUpperCase().replaceAll("\\)", "").replaceAll(delimiter + "+", delimiter));
+        //encryptedText = removeDelimitersBeforeText(encryptedText.toUpperCase().replaceAll("\\)", "") .replaceAll("[ \t\n\f\r]+", delimiter));
 
         if (encryptedText.length() == 0 || !isTextFormatDecryptable(encryptedText))
             return "Input Error";
@@ -69,7 +72,7 @@ public class TextManager {
     }
 
     public boolean isTextFormatDecryptable(String text) {
-        text = text.replaceAll(" ", "");
+        text = text.replaceAll(" +", " ");
         int length = text.length();
 
         int i = 0;
@@ -93,8 +96,16 @@ public class TextManager {
                 counter++;
                 i++;
             }
+
             if (counter == 0)
                 return false;
+
+            if (i == length)
+                return true;
+
+//            while (i < length && text.charAt(i) == ' ')
+            while (i < length && Character.toString(text.charAt(i)).equals("[ \t\n\f\r]+"))
+                i++;
         }
 
         return true;
@@ -103,6 +114,7 @@ public class TextManager {
     private String removeDelimitersBeforeText(String text) {
         int length = text.length();
         while (delimiter.equals(Character.toString(text.charAt(0)))) {
+        //while (Character.toString(text.charAt(0)).equals("[ \t\n\f\r]+")) {
             text = text.substring(1, length);
             //System.out.println(text);
 
